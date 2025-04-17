@@ -1,4 +1,4 @@
-use(universidad);
+use("universidad");
 
 // Seguridad y backups Muestra los pasos para crear un usuario con permisos de 
 // lectura y escritura, y los comandos necesarios para hacer backup y restauración 
