@@ -1,5 +1,5 @@
 // Crea una base de datos llamada empresa.
-use("empresa")
+use("empresa");
 
 // Agrega una colección empleados con 3 documentos que incluyan nombre, edad y puesto.
 db.empresa.insertMany([
