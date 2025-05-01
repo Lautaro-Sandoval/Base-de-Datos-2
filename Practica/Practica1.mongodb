@@ -1,0 +1,91 @@
+db.estudiantes.deleteMany({});
+db.estudiantes.insertMany([
+    { "nombre": "Ana", "edad": 22, "carrera": "Ingeniería", "promedio": 8.5 },
+    { "nombre": "Luis", "edad": 24, "carrera": "Medicina", "promedio": 9.1 },
+    { "nombre": "Sofía", "edad": 20, "carrera": "Ingeniería", "promedio": 7.9 },
+    { "nombre": "Carlos", "edad": 23, "carrera": "Derecho", "promedio": 6.8 }
+]);
+
+// Ejercicio 1
+// Mostrar todos los estudiantes de Ingeniería con promedio mayor a 8:
+db.estudiantes.find({
+    carrera: "Ingeniería",
+    promedio: { $gt: 8}
+});
+
+
+// Ejercicio 2
+// Mostrar los estudiantes que no estudian Derecho ni Medicina:
+db.estudiantes.find({
+    carrera: { 
+        $ne: "Derecho", 
+        $ne: "Medicina"
+    }
+});
+
+// Ejercicio 3
+// Buscar estudiantes cuyo nombre comience con "A" o "S":
+db.estudiantes.find({
+    $or: [
+        { nombre: /^A/},
+        { nombre: /^S/}
+    ]
+}); 
+
+// Ejercicio 4
+// Mostrar los estudiantes cuya edad esté entre 21 y 24 años:
+db.estudiantes.find({
+    edad: { $gte: 21, $lte: 24}
+});
+
+// Ejercicio 5
+// Buscar estudiantes con promedio mayor a 8 o que estudien Medicina:
+db.estudiantes.find({
+    $or: [
+        { promedio: { $gt: 8}},
+        { carrera: { $eq: "Medicina"}}
+    ]
+});
+
+// Ejericio 6
+// Mostrar sólo el nombre y la carrera de todos los estudiantes:
+db.estudiantes.find(
+    {}, // → significa que no filtrás por ningún campo.
+    { nombre: 1, carrera: 1, _id: 0}
+);
+
+// Ejercicio 7
+// Listar los estudiantes ordenados por promedio descendente:
+db.estudiantes.find().sort({
+    promedio: -1
+});
+
+// Ejercicio 8
+// Mostrar los dos estudiantes con menor edad:
+db.estudiantes.find().sort({
+    edad: 1
+}).limit(2);
+
+db.estudiantes.aggregate([
+    { $sort: { edad: 1}},
+    { $limit: 2}
+]);
+
+// Ejercicio 9
+// Mostrar el nombre y promedio de los tres estudiantes con promedio más alto:
+db.estudiantes.aggregate([
+    { $sort: { promedio: -1}},
+    { $limit: 3},
+    { $project: {
+        _id: 0,
+        nombre: 1,
+        promedio: 1
+    }}
+]);
+
+// Ejercicio 10
+// Mostrar nombre y edad de estudiantes, excluyendo el campo _id:
+db.estudiantes.find(
+    {},
+    { nombre: 1, edad: 1, _id: 0}
+);

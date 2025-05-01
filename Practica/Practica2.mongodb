@@ -1,0 +1,57 @@
+db.estudiantes.deleteMany({});
+db.estudiantes.insertMany([
+    { "nombre": "Ana", "edad": 22, "carrera": "Ingeniería", "promedio": 8.5, "ciudad": "Rosario" },
+    { "nombre": "Luis", "edad": 24, "carrera": "Medicina", "promedio": 9.1, "ciudad": "Córdoba" },
+    { "nombre": "Sofía", "edad": 20, "carrera": "Ingeniería", "promedio": 7.9, "ciudad": "Rosario" },
+    { "nombre": "Carlos", "edad": 23, "carrera": "Derecho", "promedio": 6.8, "ciudad": "Buenos Aires" },
+    { "nombre": "Valeria", "edad": 21, "carrera": "Medicina", "promedio": 8.7, "ciudad": "Rosario" }
+]);
+
+// Ejercicio 1
+// Agrupar por carrera y calcular el promedio de notas:
+db.estudiantes.aggregate([
+    { $group: {
+        _id: "$carrera",
+        promedioNotas: { $avg: "$promedio"}
+    }}
+]);
+
+// Ejercicio 2
+// Contar cuántos estudiantes hay por ciudad:
+db.estudiantes.aggregate([
+    { $group: {
+        _id: "$ciudad",
+        cantidadEstudiantes: { $sum: 1}
+    }}
+]);
+
+// Ejercicio 3
+// Mostrar el promedio de edad por carrera:
+db.estudiantes.aggregate([
+    { $group: {
+        _id: "$carrera",
+        promedioEdad: { $avg: "$edad"}
+    }}
+]);
+
+// Ejercicio 4
+// Agrupar por ciudad y mostrar la cantidad de estudiantes y el promedio de sus promedios:
+db.estudiantes.aggregate([
+    { $group: {
+        _id: "$ciudad",
+        cantidadEstudiantes: { $sum: 1},
+        promedio: { $avg: "$promedio"}
+    }}
+]);
+
+// Ejericio 5
+// Agrupar por carrera y contar cuántos estudiantes tienen promedio mayor a 8:
+db.estudiantes.aggregate([
+    { $match: {
+        promedio: { $gt: 8}
+    }},
+    { $group: {
+        _id: "$carrera",
+        cantidadEstudiantes: { $sum: 1}
+    }}
+]);
