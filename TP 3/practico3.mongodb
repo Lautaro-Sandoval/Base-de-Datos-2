@@ -313,5 +313,27 @@ db.ventas.insertMany([
         fecha: new Date("2023-03-29"),
         estado: "Procesando",
         metodo_pago: "PayPal"
+    },
+    {
+        _id: 116,
+        producto_id: 7,
+        cliente: { nombre: "Juan Pérez", email: "juan@example.com", pais: "Colombia" },
+        cantidad: 1,
+        precio_unitario: 60.00,
+        total: 60.00,
+        fecha: new Date("2023-04-29"),
+        estado: "Procesando",
+        metodo_pago: "PayPal"
+    },
+    {
+        _id: 119,
+        producto_id: 3,
+        cliente: { nombre: "Sofía Torres", email: "sofia@example.com", pais: "Chile" },
+        cantidad: 2,
+        precio_unitario: 120.00,
+        total: 240.00,
+        fecha: new Date("2023-04-28"),
+        estado: "Entregado",
+        metodo_pago: "Transferencia bancaria"
     }
 ]);

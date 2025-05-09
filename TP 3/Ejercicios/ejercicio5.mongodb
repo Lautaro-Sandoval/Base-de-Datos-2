@@ -5,15 +5,19 @@ use("tiendaOnline");
 // Calcular el total vendido por categoría de producto.
 
 db.ventas.aggregate([
-    { $lookup: {
-        from: "productos",
-        localField: "producto_id",
-        foreignField: "_id",
-        as: "Informacion"
-    }},
-    { $unwind: "$Informacion"},
-    { $group: {
-        _id: "$Informacion.categoria",
-        "Total Categoria": { $sum: "$total"}
-    }}
+    {
+        $lookup: {
+            from: "productos",
+            localField: "producto_id",
+            foreignField: "_id",
+            as: "Informacion"
+        }
+    },
+    { $unwind: "$Informacion" },
+    {
+        $group: {
+            _id: "$Informacion.categoria",
+            "Total Categoria": { $sum: "$total" }
+        }
+    }
 ]);
