@@ -39,8 +39,8 @@ db.ventas.aggregate([
                 categoria_preferida: "$categoria_preferida"
             },
             Compras: { $sum: 1 },
-            primera_compra: { $first: "$fecha"},
-            ultima_compra: { $last: "$fecha"}
+            primera_compra: { $first: "$fecha" },
+            ultima_compra: { $last: "$fecha" }
         }
     },
     {
